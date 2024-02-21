@@ -4903,7 +4903,13 @@
     } else if (typeof exports === 'object') {
       return module.exports = factory();
     } else {
-      return root.ifvisible = factory();
+       // Entorno global (navegadores)
+       if (root && typeof root === 'object') {
+        root.ifvisible = factory();
+      } else {
+        // Manejar el caso en el que root no es un objeto
+        console.error("No se pudo asignar 'ifvisible': 'root' no es un objeto válido.");
+      }
     }
   })(this, function() {
     var addEvent, customEvent, doc, fireEvent, hidden, idleStartedTime, idleTime, ie, ifvisible, init, initialized, status, trackIdleStatus, visibilityChange;
